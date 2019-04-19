@@ -120,23 +120,6 @@ public class PLWReader {
 	private int startTimeInt;
 
 	/**
-	 * Application start point.
-	 *
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException {
-		new PLWReader(args[0]);
-		//new PLWReader("/home/kharrington/git/plwreader/data/4Apr_BZLM_LASER.plw");
-		try {
-			System.setErr(new PrintStream(new FileOutputStream("PICO_ERR.TXT")));
-		} catch (FileNotFoundException e) {
-			System.err.println("Output error file cannot be created");
-			System.exit(FAIL);
-		}
-	}
-
-	/**
 	 * Creates frame, customised file dialog and converts
 	 * the file. Output file name is input filename with the
 	 * PLW extension changed to CSV.
@@ -427,6 +410,28 @@ public class PLWReader {
 			i++;
 		}
 		return Float.intBitsToFloat(accum);
+	}
+
+		/**
+	 * Application start point.
+	 *
+	 * @param args
+	 * @throws IOException
+	 */
+	public static void main(String[] args) throws IOException {
+		if( args.length == 0 ) {
+			System.err.println("usage: java -jar PLWReader.jar somefile.plw");
+		} else {
+
+			new PLWReader(args[0]);
+			//new PLWReader("/home/kharrington/git/plwreader/data/4Apr_BZLM_LASER.plw");
+			try {
+				System.setErr(new PrintStream(new FileOutputStream("PICO_ERR.TXT")));
+			} catch (FileNotFoundException e) {
+				System.err.println("Output error file cannot be created");
+				System.exit(FAIL);
+			}
+		}
 	}
 
 }
